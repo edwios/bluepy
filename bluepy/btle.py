@@ -540,7 +540,10 @@ class Peripheral(BluepyHelper):
         # but with response, it will be sent as a queued write
         cmd = "wrr" if withResponse else "wr"
         self._writeCmd("%s %X %s\n" % (cmd, handle, binascii.b2a_hex(val).decode('utf-8')))
-        return self._getResp('wr')
+        if withResponse:
+            return None
+        else:
+            return self._getResp('wr')
 
     def setSecurityLevel(self, level):
         self._writeCmd("secu %s\n" % level)
