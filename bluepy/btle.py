@@ -541,9 +541,9 @@ class Peripheral(BluepyHelper):
         cmd = "wrr" if withResponse else "wr"
         self._writeCmd("%s %X %s\n" % (cmd, handle, binascii.b2a_hex(val).decode('utf-8')))
         if withResponse:
-            return None
-        else:
             return self._getResp('wr')
+        else:
+            return None
 
     def setSecurityLevel(self, level):
         self._writeCmd("secu %s\n" % level)
